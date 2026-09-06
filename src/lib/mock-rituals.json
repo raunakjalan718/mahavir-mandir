@@ -1,0 +1,265 @@
+[
+  {
+    "category": "Divine Offerings & Rituals",
+    "name": "Offering to God (other days)",
+    "price": "1210",
+    "booking_type": "online"
+  },
+  {
+    "category": "Divine Offerings & Rituals",
+    "name": "Offering to God (Rama Navami)",
+    "price": "6050",
+    "booking_type": "online"
+  },
+  {
+    "category": "Divine Offerings & Rituals",
+    "name": "Akhand Jyoti",
+    "price": "830",
+    "booking_type": "online"
+  },
+  {
+    "category": "Divine Offerings & Rituals",
+    "name": "Sindoor-makeup",
+    "price": "550",
+    "booking_type": "online"
+  },
+  {
+    "category": "Divine Offerings & Rituals",
+    "name": "Daridranarayan Bhoj - Normal Day",
+    "price": "1210",
+    "price_note": "Event timings: daily 12:00 PM and 8:00 PM",
+    "booking_type": "online"
+  },
+  {
+    "category": "Divine Offerings & Rituals",
+    "name": "Daridranarayan Bhoj - Tue/Sat/Special Day",
+    "price": "1650",
+    "price_note": "Event timings: daily 12:00 PM and 8:00 PM",
+    "booking_type": "online"
+  },
+  {
+    "category": "Divine Offerings & Rituals",
+    "name": "Special Daridranarayan Bhoj",
+    "price": "2750/5610",
+    "price_note": "Event timings: daily 12:00 PM and 8:00 PM",
+    "booking_type": "online"
+  },
+  {
+    "category": "Divine Offerings & Rituals",
+    "name": "Service to the Saints",
+    "price": "830",
+    "booking_type": "online"
+  },
+  {
+    "category": "Divine Offerings & Rituals",
+    "name": "Flag Rohan",
+    "price": "2750",
+    "booking_type": "online"
+  },
+  {
+    "category": "Divine Offerings & Rituals",
+    "name": "Flower Arrangement (other days)",
+    "price": "6050",
+    "booking_type": "online"
+  },
+  {
+    "category": "Divine Offerings & Rituals",
+    "name": "Pushpa Shringar (Tue/Sat/Special Days)",
+    "price": "8250",
+    "booking_type": "online"
+  },
+  {
+    "category": "Divine Offerings & Rituals",
+    "name": "Flower Decoration (Ramnavami/Diwali)",
+    "price": "16500",
+    "booking_type": "online"
+  },
+  {
+    "category": "Divine Offerings & Rituals",
+    "name": "Lord's Clothing",
+    "price": "34100",
+    "booking_type": "online"
+  },
+  {
+    "category": "Pooja & Archana",
+    "name": "Rudrabhishek - Sawan Monday/Mahashivratri",
+    "price": "2750",
+    "booking_type": "cash_counter"
+  },
+  {
+    "category": "Pooja & Archana",
+    "name": "Rudrabhishek - Other days in Sawan",
+    "price": "2310",
+    "booking_type": "cash_counter"
+  },
+  {
+    "category": "Pooja & Archana",
+    "name": "Rudrabhishek - Monday/Special Day",
+    "price": "2310",
+    "booking_type": "cash_counter"
+  },
+  {
+    "category": "Pooja & Archana",
+    "name": "Rudrabhishek - Other days",
+    "price": "1650",
+    "booking_type": "cash_counter"
+  },
+  {
+    "category": "Pooja & Archana",
+    "name": "Maharudrabhishek (three hours)",
+    "price": "5610",
+    "booking_type": "cash_counter"
+  },
+  {
+    "category": "Pooja & Archana",
+    "name": "Satyanarayan Pooja",
+    "price": "1210",
+    "booking_type": "cash_counter"
+  },
+  {
+    "category": "Pooja & Archana",
+    "name": "Ramaarcha Puja",
+    "price": "2310",
+    "booking_type": "cash_counter"
+  },
+  {
+    "category": "Pooja & Archana",
+    "name": "Hanuman Puja",
+    "price": "2310",
+    "booking_type": "cash_counter"
+  },
+  {
+    "category": "Pooja & Archana",
+    "name": "Graha Shanti Puja (one planet, 1 hour)",
+    "price": "2100",
+    "booking_type": "cash_counter"
+  },
+  {
+    "category": "Pooja & Archana",
+    "name": "Navgraha Shanti Puja (all planets, 4 hours)",
+    "price": "11000",
+    "booking_type": "cash_counter"
+  },
+  {
+    "category": "Pooja & Archana",
+    "name": "Hanuman Chalisa Path (108 Paths)",
+    "price": "1210",
+    "booking_type": "cash_counter"
+  },
+  {
+    "category": "Pooja & Archana",
+    "name": "Ram Raksha Stotra/Hanuman Kavach/Aditya Hridaya Path/Other Path (One Path)",
+    "price": "280",
+    "booking_type": "cash_counter"
+  },
+  {
+    "category": "Pooja & Archana",
+    "name": "Sunderkand Path (One chapter)",
+    "price": "280",
+    "booking_type": "cash_counter"
+  },
+  {
+    "category": "Pooja & Archana",
+    "name": "Valmiki Sundarkand (One lesson)",
+    "price": "2310",
+    "booking_type": "cash_counter"
+  },
+  {
+    "category": "Chanting & Path",
+    "name": "Durga Saptashati Recitation (Samputa)",
+    "price": "2310",
+    "booking_type": "cash_counter"
+  },
+  {
+    "category": "Chanting & Path",
+    "name": "Durga Saptashati Ordinary Text",
+    "price": "1110",
+    "booking_type": "cash_counter"
+  },
+  {
+    "category": "Chanting & Path",
+    "name": "Kalashsthapana/Durga Path (nine days)",
+    "price": "8250",
+    "booking_type": "cash_counter"
+  },
+  {
+    "category": "Chanting & Path",
+    "name": "Manokamna Yagya",
+    "price": "5610",
+    "booking_type": "cash_counter"
+  },
+  {
+    "category": "Chanting & Path",
+    "name": "Janma Mangalanushthan",
+    "price": "1210",
+    "booking_type": "cash_counter"
+  },
+  {
+    "category": "Chanting & Path",
+    "name": "Flag Resolution",
+    "price": "120",
+    "booking_type": "cash_counter"
+  },
+  {
+    "category": "Chanting & Path",
+    "name": "Mundan",
+    "price_note": "no musical instruments played",
+    "price": "550",
+    "booking_type": "cash_counter"
+  },
+  {
+    "category": "Chanting & Path",
+    "name": "Initiation into the Ramavat Sect",
+    "price": "60",
+    "booking_type": "cash_counter"
+  },
+  {
+    "category": "Chanting & Path",
+    "name": "Mahamrityunjaya Japa/Other Planet Japa",
+    "price": "330",
+    "price_note": "per thousand; presence required at Sankalp and Havan",
+    "booking_type": "cash_counter"
+  },
+  {
+    "category": "Vehicle Puja",
+    "name": "Vehicle Worship - Cycle/Rickshaw",
+    "price": "35",
+    "booking_type": "cash_counter"
+  },
+  {
+    "category": "Vehicle Puja",
+    "name": "Vehicle Worship - Two-wheeler/Motorcycle/E-rickshaw",
+    "price": "115",
+    "booking_type": "cash_counter"
+  },
+  {
+    "category": "Vehicle Puja",
+    "name": "Vehicle Puja - Four Wheeler and above",
+    "price": "275",
+    "booking_type": "cash_counter"
+  },
+  {
+    "category": "Kundli & Astrology",
+    "name": "Kundali Matching",
+    "price": "220",
+    "booking_type": "cash_counter"
+  },
+  {
+    "category": "Kundli & Astrology",
+    "name": "Kundali Creation with Predictions (under 18)",
+    "price": "440",
+    "booking_type": "cash_counter"
+  },
+  {
+    "category": "Kundli & Astrology",
+    "name": "Kundali Creation with Predictions",
+    "price": "550",
+    "booking_type": "cash_counter"
+  },
+  {
+    "category": "Kundli & Astrology",
+    "name": "Astrology Consultation Fee (Palmistry/Birth Chart)",
+    "price": "170",
+    "booking_type": "cash_counter"
+  }
+]

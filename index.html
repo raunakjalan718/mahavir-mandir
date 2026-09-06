@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mahavir Mandir, Patna | Shree Mahavir Sthan Nayas Samiti</title>
+
+  <!-- Tailwind CSS & Fonts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- React & Babel -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    body {
+      background-color: #faf7f2;
+      color: #2a1e17;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .font-serif-title {
+      font-family: 'Cinzel', serif;
+    }
+
+    .modern-card {
+      background-color: #ffffff;
+      border: 1px solid rgba(139, 30, 15, 0.15);
+      border-radius: 0.75rem;
+      transition: all 0.25s ease;
+    }
+
+    .modern-card:hover {
+      transform: translateY(-2px);
+      border-color: rgb(255, 123, 0);
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    function MandirApp() {
+      const [isDonateOpen, setIsDonateOpen] = useState(false);
+      const [isLiveOpen, setIsLiveOpen] = useState(false);
+      const [activeTab, setActiveTab] = useState("construction");
+
+      const tabContents = {
+        construction: "The present temple complex was renovated between November 30, 1984 and March 4, 1985. Covering an expansive area of 10,000 square feet, the complex provides complete amenities for visitors and devotees. Upon entering the temple complex, stairs on a platform on the left lead to the main area of the temple, called the Sanctum Sanctorum, where Lord Hanuman is enshrined. Surrounding this is a wide corridor containing the deity of Lord Shiva.",
+        expansion: "Over the decades, Mahavir Mandir has expanded into a major pilgrimage and civic complex. Facilities include multi-storey devotional halls, streamlined queue corridors, research centers, publication units, and world-class charitable hospitals.",
+        history: "Mahavir Mandir is one of the oldest and holiest Hindu temples dedicated to Lord Hanuman in India. Located right near Patna Junction station, the Sankat Mochan shrine holds a sacred place in the hearts of millions of devotees who visit throughout the year, especially during Ram Navami."
+      };
+
+      return (
+        <div className="min-h-screen bg-[#faf7f2] text-[#2a1e17] relative">
+
+          {/* Top Announcement Bar */}
+          <div className="bg-[#8b1e0f] text-white text-xs py-2 px-4">
+            <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2 font-medium">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                <span>Daily Schedule: Opens 5:00 AM | Morning Aarti 5:00 PM</span>
+                {/* VERIFY: exact morning vs evening aarti timings against live site before final launch */}
+              </div>
+              <div className="text-amber-200 text-[11px]">
+                Patna Junction, Bihar • Shree Mahavir Sthan Nayas Samiti
+              </div>
+            </div>
+          </div>
+
+          {/* Header Navbar */}
+          <header className="sticky top-0 z-40 bg-[#faf7f2]/95 backdrop-blur-md border-b border-amber-900/10 shadow-sm">
+            <div className="max-w-7xl mx-auto px-4 py-3.5 flex items-center justify-between">
+
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 rounded-xl bg-white p-1 flex items-center justify-center border border-amber-400/40 shadow-sm">
+                  <img src="public/images/logo.png" alt="Mahavir Mandir Logo" className="w-full h-full object-contain" />
+                </div>
+                <div>
+                  <h1 className="font-serif-title text-xl font-bold text-[#2a1e17] leading-snug">Mahavir Mandir, Patna</h1>
+                  <p className="text-xs text-[#8b1e0f] font-bold">Shree Mahavir Sthan Nayas Samiti</p>
+                </div>
+              </div>
+
+              <nav className="hidden lg:flex items-center gap-6 text-xs font-bold uppercase tracking-wider text-[#2a1e17]">
+                <a href="#about" className="hover:text-[#8b1e0f]">About Us</a>
+                <a href="#services" className="hover:text-[#8b1e0f]">Rituals & Offerings</a>
+                <a href="#about" className="hover:text-[#8b1e0f]">Research & Publications</a>
+                <a href="#activity" className="hover:text-[#8b1e0f]">Online Services</a>
+                <a href="#health" className="hover:text-[#8b1e0f]">Health Institutes</a>
+                <a href="#contact" className="hover:text-[#8b1e0f]">Contact Us</a>
+              </nav>
+
+              <button onClick={() => setIsLiveOpen(true)} className="px-4 py-2 rounded-lg bg-white border border-red-200 text-[#8b1e0f] font-bold text-xs shadow-sm hover:bg-red-50 flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
+                <span>Live Darshan</span>
+              </button>
+            </div>
+          </header>
+
+          {/* Hero Banner */}
+          <section className="relative py-14 lg:py-24 px-4 bg-gradient-to-br from-[#5c1208] via-[#75190b] to-[#3d0903] text-white border-b-4 border-[#d4af37] overflow-hidden">
+            <div 
+              className="absolute inset-0 bg-cover bg-center opacity-15 mix-blend-overlay pointer-events-none"
+              style={{ backgroundImage: "url('public/images/Mahavir%20Mandir.png')" }}
+            ></div>
+            <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+              <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
+                <span className="text-xs font-bold text-amber-300 uppercase tracking-widest block">
+                  Shree Mahavir Sthan Nayas Samiti
+                </span>
+
+                <h1 className="font-serif-title text-4xl sm:text-6xl font-extrabold text-white leading-tight">
+                  Mahavir Mandir, <br />
+                  <span className="text-amber-300">Patna, Bihar</span>
+                </h1>
+
+                <p className="text-sm sm:text-base text-amber-100/90 font-normal leading-relaxed max-w-xl">
+                  One of the oldest and holiest Hanuman temples in India. Enshrining the sacred Sanctum Sanctorum of Lord Hanuman and the Lord Shiva Corridor.
+                </p>
+
+                <div className="bg-black/30 p-4 rounded-xl border border-amber-400/20 max-w-lg text-xs sm:text-sm flex flex-col sm:flex-row justify-between items-center gap-2">
+                  <span className="font-bold text-amber-200">Daily Schedule: Opens 5:00 AM</span>
+                  <span>Morning Aarti: <strong className="text-amber-300">5:00 PM</strong></span>
+                </div>
+
+                <div className="flex flex-wrap gap-4 pt-2 justify-center lg:justify-start">
+                  <button onClick={() => setIsDonateOpen(true)} className="px-6 py-3 rounded-lg bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold text-sm shadow-lg">
+                    Online Donation →
+                  </button>
+                  <button onClick={() => setIsLiveOpen(true)} className="px-6 py-3 rounded-lg bg-white/10 border border-white/30 text-white font-bold text-sm">
+                    Watch Live Stream
+                  </button>
+                </div>
+              </div>
+
+              {/* Architectural Sanctum Sanctorum Frame with Mahavir Mandir Photo & Logo */}
+              <div className="lg:col-span-5 flex justify-center">
+                <div className="relative bg-[#420d06] rounded-2xl border-2 border-[#d4af37]/60 shadow-2xl overflow-hidden max-w-sm w-full">
+                  
+                  {/* Temple Image */}
+                  <div className="relative h-60 w-full overflow-hidden bg-black/40">
+                    <img 
+                      src="public/images/Mahavir%20Mandir.png" 
+                      alt="Mahavir Mandir Patna" 
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#420d06] via-transparent to-black/20"></div>
+                    <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-md text-amber-300 text-[11px] font-bold px-3 py-1 rounded-full border border-amber-400/40">
+                      📍 Patna Junction, Bihar
+                    </div>
+                  </div>
+
+                  {/* Content Container */}
+                  <div className="p-6 text-center space-y-3 relative bg-[#420d06]">
+                    {/* Logo replacing ॐ */}
+                    <div className="-mt-14 relative z-10 inline-block">
+                      <div className="w-20 h-20 rounded-full border-4 border-[#d4af37] bg-white p-2 shadow-xl mx-auto flex items-center justify-center">
+                        <img 
+                          src="public/images/logo.png" 
+                          alt="Mahavir Mandir Logo" 
+                          className="w-full h-full object-contain"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <h3 className="font-serif-title text-xl font-bold text-amber-200">Sanctum Sanctorum</h3>
+                      <p className="text-xs text-amber-300 font-serif">श्री महावीर हनुमान मंदिर</p>
+                    </div>
+
+                    <p className="border-t border-b border-[#d4af37]/30 py-3 text-xs text-amber-100/90 leading-relaxed">
+                      Renovated Nov 30, 1984 – Mar 4, 1985 covering 10,000 sq ft. Housing the main sanctum of Lord Hanuman and Lord Shiva corridor.
+                    </p>
+
+                    <div className="text-[11px] font-bold text-amber-300 uppercase tracking-widest">Patna Junction Complex • Bihar</div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Services Grid (Strong Typography & Numbers - NO icons, NO pill badges) */}
+          <section id="services" className="py-14 px-4 max-w-7xl mx-auto space-y-8">
+            <div className="border-b-2 border-[#8b1e0f]/20 pb-4 max-w-3xl">
+              <h2 className="font-serif-title text-3xl font-bold text-[#2a1e17]">Rituals & Offerings (पूजा एवं सेवा)</h2>
+              <p className="text-xs text-[#2a1e17]/80 mt-1">Comprehensive ritualistic, devotional, and astrological services performed daily at Mahavir Mandir Patna.</p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+              {/* Category 01 */}
+              <div className="modern-card p-6 space-y-3">
+                <div className="flex items-center justify-between border-b border-amber-900/10 pb-2">
+                  <span className="font-serif-title text-2xl font-bold text-[#8b1e0f]">01</span>
+                  <span className="w-6 h-0.5 bg-[#d4af37]"></span>
+                </div>
+                <h3 className="font-serif-title font-bold text-[#2a1e17]">Divine Offerings & Rituals</h3>
+                <ul className="text-xs space-y-1.5 text-[#2a1e17]/85">
+                  <li>— Daridranarayan feast</li>
+                  <li>— Vermillion adornment</li>
+                  <li>— Akhand-jyoti & Flag hoisting</li>
+                  <li>— Floral adornment</li>
+                </ul>
+              </div>
+
+              {/* Category 02 */}
+              <div className="modern-card p-6 space-y-3">
+                <div className="flex items-center justify-between border-b border-amber-900/10 pb-2">
+                  <span className="font-serif-title text-2xl font-bold text-[#8b1e0f]">02</span>
+                  <span className="w-6 h-0.5 bg-[#d4af37]"></span>
+                </div>
+                <h3 className="font-serif-title font-bold text-[#2a1e17]">Worship & Havans</h3>
+                <ul className="text-xs space-y-1.5 text-[#2a1e17]/85">
+                  <li>— Rudrabhishek & Satyanarayan Katha</li>
+                  <li>— Hanumat-worship & Ramarcha-worship</li>
+                  <li>— Brihad-manokamana yagya</li>
+                  <li>— Grahasanti & Rogashanti Havan</li>
+                  <li>— Mundan ritual</li>
+                </ul>
+              </div>
+
+              {/* Category 03 */}
+              <div className="modern-card p-6 space-y-3">
+                <div className="flex items-center justify-between border-b border-amber-900/10 pb-2">
+                  <span className="font-serif-title text-2xl font-bold text-[#8b1e0f]">03</span>
+                  <span className="w-6 h-0.5 bg-[#d4af37]"></span>
+                </div>
+                <h3 className="font-serif-title font-bold text-[#2a1e17]">Chanting & Recitation</h3>
+                <ul className="text-xs space-y-1.5 text-[#2a1e17]/85">
+                  <li>— Mahamrityunjaya chanting</li>
+                  <li>— Sunderkand Ramcharitmanas</li>
+                  <li>— Shri Durga Saptashati & Ram Raksha Stotra</li>
+                  <li>— Kalash-establishment</li>
+                  <li>— Initiation into Ramavat sect</li>
+                </ul>
+              </div>
+
+              {/* Category 04 */}
+              <div className="modern-card p-6 space-y-3">
+                <div className="flex items-center justify-between border-b border-amber-900/10 pb-2">
+                  <span className="font-serif-title text-2xl font-bold text-[#8b1e0f]">04</span>
+                  <span className="w-6 h-0.5 bg-[#d4af37]"></span>
+                </div>
+                <h3 className="font-serif-title font-bold text-[#2a1e17]">Vehicle & Horoscope</h3>
+                <ul className="text-xs space-y-1.5 text-[#2a1e17]/85">
+                  <li>— Vehicle worship (bicycle, rickshaw, two-wheeler, motorcycle, three-wheeler)</li>
+                  <li>— Palmistry & horoscope testing</li>
+                  <li>— Astrological calculations & predictions</li>
+                </ul>
+              </div>
+
+            </div>
+          </section>
+
+          {/* Sanctum Sanctorum & History */}
+          <section id="about" className="py-14 px-4 max-w-7xl mx-auto bg-white rounded-2xl border border-amber-900/15 p-8 space-y-6">
+            <div className="border-b-2 border-[#8b1e0f]/20 pb-3 max-w-3xl">
+              <h2 className="font-serif-title text-3xl font-bold text-[#2a1e17]">Ancient Mahavir Temple, Patna</h2>
+              <p className="text-xs text-[#2a1e17]/80 mt-1">One of the holiest Hindu temples dedicated to Lord Hanuman in India.</p>
+            </div>
+
+            <div className="border-b border-amber-900/10 flex flex-wrap gap-2">
+              <button onClick={() => setActiveTab("construction")} className={`px-4 py-2 font-bold text-xs rounded-t-lg ${activeTab === 'construction' ? 'bg-[#8b1e0f] text-white' : 'bg-gray-100 text-[#2a1e17]'}`}>Construction of Temple</button>
+              <button onClick={() => setActiveTab("expansion")} className={`px-4 py-2 font-bold text-xs rounded-t-lg ${activeTab === 'expansion' ? 'bg-[#8b1e0f] text-white' : 'bg-gray-100 text-[#2a1e17]'}`}>Expansion of Mahavir Temple</button>
+              <button onClick={() => setActiveTab("history")} className={`px-4 py-2 font-bold text-xs rounded-t-lg ${activeTab === 'history' ? 'bg-[#8b1e0f] text-white' : 'bg-gray-100 text-[#2a1e17]'}`}>History of Mahavir Temple</button>
+            </div>
+
+            <div className="bg-[#faf7f2] p-6 rounded-xl border border-amber-900/10 text-xs sm:text-sm text-[#2a1e17]/90 leading-relaxed">
+              {tabContents[activeTab]}
+            </div>
+          </section>
+
+          {/* Activity Cards (News, Festivals, Daily Schedule) */}
+          <section id="activity" className="py-14 px-4 max-w-7xl mx-auto space-y-8">
+            <div className="border-b-2 border-[#8b1e0f]/20 pb-3">
+              <h2 className="font-serif-title text-3xl font-bold text-[#2a1e17]">Present Activity (नवीनतम गतिविधियाँ)</h2>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+              {/* News Card */}
+              <div className="modern-card p-6 space-y-4">
+                <div className="border-b border-amber-900/10 pb-3">
+                  <h3 className="font-serif-title font-bold text-[#2a1e17]">Latest News (नवीनतम समाचार)</h3>
+                </div>
+                <div className="space-y-2 text-xs">
+                  <div className="p-3 bg-[#faf7f2] rounded-lg border border-amber-900/10 font-medium">Why is Mahavir Temple considered one of the major temples of the country?</div>
+                  <div className="p-3 bg-[#faf7f2] rounded-lg border border-amber-900/10 font-medium">Free facility of mortal remains vehicle</div>
+                </div>
+              </div>
+
+              {/* Festivals Card */}
+              <div className="modern-card p-6 space-y-4">
+                <div className="border-b border-amber-900/10 pb-3">
+                  <h3 className="font-serif-title font-bold text-[#2a1e17]">Upcoming Festivals (त्योहार)</h3>
+                </div>
+                <div className="space-y-2 text-xs">
+                  <div className="p-3 bg-[#faf7f2] rounded-lg border border-amber-900/10 flex justify-between">
+                    <span>Makar Sankranti</span>
+                    <strong className="text-[#8b1e0f]">15 Jan 2026</strong>
+                  </div>
+                  <div className="p-3 bg-[#faf7f2] rounded-lg border border-amber-900/10 flex justify-between">
+                    <span>Republic Day</span>
+                    <strong className="text-[#8b1e0f]">26 Jan 2026</strong>
+                  </div>
+                </div>
+              </div>
+
+              {/* Schedule Card */}
+              <div className="modern-card p-6 space-y-4">
+                <div className="border-b border-amber-900/10 pb-3">
+                  <h3 className="font-serif-title font-bold text-[#2a1e17]">Daily Program (कार्यक्रम)</h3>
+                </div>
+                <div className="space-y-2 text-xs">
+                  <div className="p-3 bg-[#faf7f2] rounded-lg border border-amber-900/10 flex justify-between">
+                    <span>Temple Opening Time</span>
+                    <strong className="text-[#8b1e0f]">05:00 AM Daily</strong>
+                  </div>
+                  <div className="p-3 bg-[#faf7f2] rounded-lg border border-amber-900/10 flex justify-between">
+                    <span>Morning Aarti</span>
+                    <strong className="text-[#8b1e0f]">05:00 PM Daily</strong>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+          {/* Health Institutes */}
+          <section id="health" className="py-14 px-4 max-w-7xl mx-auto space-y-6">
+            <div className="border-b-2 border-[#8b1e0f]/20 pb-3 max-w-3xl">
+              <h2 className="font-serif-title text-3xl font-bold text-[#2a1e17]">Health Institutes (स्वास्थ्य संस्थान)</h2>
+              <p className="text-xs text-[#2a1e17]/80 mt-1">Hospitals operated under Shree Mahavir Sthan Nayas Samiti.</p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 text-xs">
+              <div className="modern-card p-5 space-y-2">
+                <h3 className="font-serif-title font-bold text-base text-[#2a1e17]">Mahavir Cancer Institute</h3>
+                <p className="text-[#2a1e17]/80">Premier cancer care and oncology research center.</p>
+              </div>
+              <div className="modern-card p-5 space-y-2">
+                <h3 className="font-serif-title font-bold text-base text-[#2a1e17]">Mahavir Health Institute</h3>
+                <p className="text-[#2a1e17]/80">Multi-specialty diagnostic and clinical care facility.</p>
+              </div>
+              <div className="modern-card p-5 space-y-2">
+                <h3 className="font-serif-title font-bold text-base text-[#2a1e17]">Mahavir Vatsalya Hospital</h3>
+                <p className="text-[#2a1e17]/80">Pediatric & maternal super-specialty hospital.</p>
+              </div>
+              <div className="modern-card p-5 space-y-2">
+                <h3 className="font-serif-title font-bold text-base text-[#2a1e17]">Mahavir Netralaya</h3>
+                <p className="text-[#2a1e17]/80">Ophthalmology center and free eye surgery drives.</p>
+              </div>
+              <div className="modern-card p-5 space-y-2">
+                <h3 className="font-serif-title font-bold text-base text-[#2a1e17]">Mahavir Heart Hospital</h3>
+                <p className="text-[#2a1e17]/80">Advanced cardiology and cardiac surgery unit.</p>
+              </div>
+            </div>
+          </section>
+
+          {/* Clean 3-Column Footer */}
+          <footer id="contact" className="bg-[#2a1e17] text-amber-100/90 py-12 px-4 border-t-4 border-[#8b1e0f]">
+            <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-xs">
+
+              {/* Column 1 */}
+              <div className="space-y-3">
+                <h3 className="font-serif-title text-lg font-bold text-amber-300">Mahavir Mandir, Patna</h3>
+                <p className="text-amber-100/80">Shree Mahavir Sthan Nayas Samiti</p>
+                <p className="text-amber-100/70">Near Railway Station, Patna, Bihar, India</p>
+                <div className="pt-2 flex gap-3 text-amber-300 font-bold">
+                  <a href="#about" className="hover:underline">About Us</a> •
+                  <a href="#" className="hover:underline">Secretary's Message</a>
+                </div>
+              </div>
+
+              {/* Column 2 */}
+              <div className="space-y-3">
+                <h3 className="font-serif-title text-base font-bold text-white border-b border-amber-900/40 pb-1">Services & Publications</h3>
+                <ul className="space-y-1.5 text-amber-100/80">
+                  <li>Vedic Rituals & Divine Offerings</li>
+                  <li>Worship, Rudrabhishek & Havans</li>
+                  <li>Vehicle Worship & Horoscope Consultation</li>
+                  <li>Dharmayana Monthly Magazine</li>
+                  <li>Mahavir Mandir Publications</li>
+                  <li>Current Recruitment & Tenders</li>
+                </ul>
+              </div>
+
+              {/* Column 3 */}
+              <div className="space-y-3">
+                <h3 className="font-serif-title text-base font-bold text-white border-b border-amber-900/40 pb-1">Health Institutes & Policies</h3>
+                <ul className="space-y-1.5 text-amber-100/80">
+                  <li>Mahavir Cancer Institute</li>
+                  <li>Mahavir Health Institute</li>
+                  <li>Mahavir Vatsalya Hospital</li>
+                  <li>Mahavir Netralaya & Heart Hospital</li>
+                  <li>Poor Narayan Bhoj & Mortal Remains Vehicle</li>
+                  <li>Terms & Conditions • Privacy Policy</li>
+                </ul>
+              </div>
+
+            </div>
+
+            <div className="max-w-7xl mx-auto mt-8 pt-4 border-t border-amber-900/30 text-center text-xs text-amber-200/60">
+              © Shree Mahavir Sthan Nayas Samiti, Mahavir Mandir, Patna, Bihar.
+            </div>
+          </footer>
+
+          {/* Donation Modal */}
+          {isDonateOpen && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+              <div className="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 border border-amber-200">
+                <div className="flex justify-between items-center border-b pb-2">
+                  <h3 className="font-serif-title font-bold text-base text-[#2a1e17]">Online Donation / Offering</h3>
+                  <button onClick={() => setIsDonateOpen(false)} className="font-bold text-gray-600">✕</button>
+                </div>
+                <p className="text-xs text-[#2a1e17]/80">Official Donation Portal for Shree Mahavir Sthan Nayas Samiti, Patna.</p>
+                <button onClick={() => setIsDonateOpen(false)} className="w-full py-2.5 rounded-lg bg-[#8b1e0f] text-white font-bold text-xs uppercase">
+                  Close Portal
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Live Modal */}
+          {isLiveOpen && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+              <div className="bg-slate-900 text-white rounded-2xl max-w-2xl w-full p-6 space-y-4 border border-amber-500/30">
+                <div className="flex justify-between items-center">
+                  <h3 className="font-serif-title font-bold text-amber-300">LIVE DARSHAN STREAM</h3>
+                  <button onClick={() => setIsLiveOpen(false)} className="font-bold">✕</button>
+                </div>
+                <div className="aspect-video bg-black rounded-xl flex items-center justify-center border border-gray-700">
+                  {/* TODO: replace with real temple video stream */}
+                  <span className="text-xs text-gray-400">Live Darshan Stream Feed • Mahavir Mandir Patna</span>
+                </div>
+              </div>
+            </div>
+          )}
+
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<MandirApp />);
+  </script>
+</body>
+
+</html>

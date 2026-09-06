@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --maroon-primary: #8b1e0f;
+  --saffron-vibrant: #d94e16;
+  --gold-accent: #d4af37;
+  --cream-bg: #faf7f2;
+  --text-dark: #2a1e17;
+}
+
+body {
+  background-color: #faf7f2;
+  color: #2a1e17;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+.font-serif-title {
+  font-family: 'Cinzel', serif;
+}
+
+/* Modern Card Hover Effects */
+.modern-card {
+  background-color: #ffffff;
+  border: 1px solid rgba(139, 30, 15, 0.12);
+  border-radius: 1rem;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modern-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px -6px rgba(139, 30, 15, 0.12);
+  border-color: rgba(217, 78, 22, 0.3);
+}
+
+/* Gold Gradient Text */
+.gold-heading-text {
+  background: linear-gradient(135deg, #8b1e0f 0%, #d94e16 60%, #b8860b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

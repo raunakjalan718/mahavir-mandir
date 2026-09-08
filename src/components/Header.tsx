@@ -214,9 +214,10 @@ export default function Header({
                 // Show a small inline translate popover
                 const existing = document.getElementById('nav-translate-popover');
                 if (existing) { existing.remove(); return; }
+
                 const pop = document.createElement('div');
                 pop.id = 'nav-translate-popover';
-                pop.style.cssText = 'position:fixed;top:64px;right:120px;z-index:9999;background:#2a1e17;border:1px solid rgba(251,191,36,0.3);border-radius:16px;padding:16px;box-shadow:0 20px 60px rgba(0,0,0,0.4);min-width:220px';
+                pop.style.cssText = 'position:fixed;top:64px;right:8px;z-index:9999;background:#2a1e17;border:1px solid rgba(251,191,36,0.3);border-radius:16px;padding:16px;box-shadow:0 20px 60px rgba(0,0,0,0.4);min-width:230px';
                 pop.innerHTML = `
                   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
                     <span style="color:#fcd34d;font-weight:700;font-size:13px">🌐 Translate Page</span>
@@ -228,9 +229,13 @@ export default function Header({
                 `;
                 document.body.appendChild(pop);
                 document.getElementById('nav-translate-close')?.addEventListener('click', () => pop.remove());
-                // Clone the GT select
-                const srcSel = document.querySelector<HTMLSelectElement>('#google_translate_element select.goog-te-combo');
+
+                // Find the GT select — check both possible locations
+                const srcSel =
+                  document.querySelector<HTMLSelectElement>('#google_translate_element select.goog-te-combo') ||
+                  document.querySelector<HTMLSelectElement>('select.goog-te-combo');
                 const container = document.getElementById('nav-gt-clone');
+
                 if (srcSel && container) {
                   const cloned = srcSel.cloneNode(true) as HTMLSelectElement;
                   cloned.style.cssText = 'width:100%;background:#1a110c;color:#fde68a;border:1px solid rgba(251,191,36,0.3);border-radius:10px;padding:8px 12px;font-size:13px;cursor:pointer;outline:none';
@@ -239,7 +244,10 @@ export default function Header({
                     srcSel.dispatchEvent(new Event('change'));
                   });
                   container.appendChild(cloned);
+                } else if (container) {
+                  container.innerHTML = '<span style="color:rgba(254,243,199,0.4);font-size:11px">Still loading\u2026 please try again in a moment.</span>';
                 }
+
                 // Close on outside click
                 setTimeout(() => {
                   document.addEventListener('mousedown', function handler(e) {

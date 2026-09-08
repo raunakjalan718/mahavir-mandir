@@ -17,16 +17,25 @@ export default function SideEdgeTabs({
   const [langOpen, setLangOpen] = useState(false);
   const langRef = useRef<HTMLDivElement>(null);
 
-  // Hide the default Google Translate top bar that Google injects
+  // Suppress Google Translate's injected top toolbar
   useEffect(() => {
     const style = document.createElement("style");
+    style.id = "gt-suppress";
     style.innerHTML = `
-      .goog-te-banner-frame, #goog-gt-tt, .goog-te-balloon-frame { display:none !important; }
-      body { top: 0 !important; }
-      .skiptranslate { display: none !important; }
+      .goog-te-banner-frame.skiptranslate { display: none !important; }
+      .goog-te-gadget { display: none !important; }
+      #goog-gt-tt { display: none !important; }
+      .goog-te-balloon-frame { display: none !important; }
+      body { top: 0px !important; }
+      font { background-color: transparent !important; box-shadow: none !important; }
     `;
-    document.head.appendChild(style);
-    return () => { document.head.removeChild(style); };
+    if (!document.getElementById("gt-suppress")) {
+      document.head.appendChild(style);
+    }
+    return () => {
+      const el = document.getElementById("gt-suppress");
+      if (el) el.remove();
+    };
   }, []);
 
   function handleAction(id: string) {
@@ -251,38 +260,59 @@ export default function SideEdgeTabs({
  */
 function GoogleTranslateMirror() {
   const [langs, setLangs] = useState<{ value: string; label: string }[]>([]);
-  const [selected, setSelected] = useState("en");
+  const [selected, setSelected] = useState("");
+  const [error, setError] = useState(false);
 
   useEffect(() => {
-    // Poll until GT populates the hidden select
-    const interval = setInterval(() => {
-      const sourceSelect = document.querySelector<HTMLSelectElement>(
-        "#google_translate_element select.goog-te-combo"
-      );
-      if (!sourceSelect || sourceSelect.options.length < 2) return;
+    let attempts = 0;
+    const MAX_ATTEMPTS = 60; // poll for up to ~18 seconds
 
-      clearInterval(interval);
-      const options = Array.from(sourceSelect.options).map((o) => ({
-        value: o.value,
-        label: o.text,
-      }));
-      setLangs(options);
-      setSelected(sourceSelect.value || "en");
+    const interval = setInterval(() => {
+      attempts++;
+
+      // GT may render the select inside different containers — check both
+      const sourceSelect =
+        document.querySelector<HTMLSelectElement>("#google_translate_element select.goog-te-combo") ||
+        document.querySelector<HTMLSelectElement>("select.goog-te-combo");
+
+      if (sourceSelect && sourceSelect.options.length > 1) {
+        clearInterval(interval);
+        const options = Array.from(sourceSelect.options).map((o) => ({
+          value: o.value,
+          label: o.text,
+        }));
+        setLangs(options);
+        setSelected(sourceSelect.value || "");
+        return;
+      }
+
+      if (attempts >= MAX_ATTEMPTS) {
+        clearInterval(interval);
+        setError(true);
+      }
     }, 300);
+
     return () => clearInterval(interval);
   }, []);
 
   function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
     const val = e.target.value;
     setSelected(val);
-    // Drive the real hidden Google Translate select
-    const sourceSelect = document.querySelector<HTMLSelectElement>(
-      "#google_translate_element select.goog-te-combo"
-    );
+    const sourceSelect =
+      document.querySelector<HTMLSelectElement>("#google_translate_element select.goog-te-combo") ||
+      document.querySelector<HTMLSelectElement>("select.goog-te-combo");
     if (sourceSelect) {
       sourceSelect.value = val;
       sourceSelect.dispatchEvent(new Event("change"));
     }
+  }
+
+  if (error) {
+    return (
+      <div className="text-amber-100/50 text-xs py-2">
+        Could not load languages. Please reload the page.
+      </div>
+    );
   }
 
   if (langs.length === 0) {

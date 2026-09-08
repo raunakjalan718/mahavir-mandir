@@ -1,0 +1,58 @@
+EXTERNAL CHANGES REQUIRED FOR GOOGLE TRANSLATE
+===============================================
+Mahavir Mandir Site — mahavirmandirpatna.org / Vercel Deployment
+
+No manual Vercel dashboard changes are required for this fix.
+All changes are in the codebase itself.
+
+WHAT WAS WRONG
+--------------
+1. layout.tsx is a Server Component in Next.js 14 App Router.
+   `next/script` with `strategy="afterInteractive"` inside a Server Component
+   does NOT guarantee the inline callback script runs BEFORE the external GT
+   script. If the external script fires first, `googleTranslateElementInit`
+   is undefined and GT silently fails — no select is ever created.
+
+2. The #google_translate_element div had `display: none`.
+   Google Translate will NOT inject its <select> into a hidden element.
+
+WHAT WAS FIXED (code changes)
+------------------------------
+NEW FILE: src/components/GoogleTranslateLoader.tsx
+  - A "use client" component that runs only in the browser
+  - Uses useEffect to define window.googleTranslateElementInit FIRST
+  - Then imperatively appends the <script> tag to <head>
+  - This guarantees the callback is always defined before GT calls it
+  - Renders #google_translate_element off-screen (position:fixed top:-9999px)
+    so it is rendered in the DOM (required by GT) but invisible to users
+  - Injects CSS to suppress Google's auto-injected top toolbar
+
+MODIFIED: src/app/layout.tsx
+  - Removed all old next/script GT code
+  - Imports and renders <GoogleTranslateLoader /> (client component)
+
+MODIFIED: src/components/SideEdgeTabs.tsx
+  - Removed duplicate GT toolbar-suppression CSS (now handled by GoogleTranslateLoader)
+
+NO EXTERNAL/VERCEL CHANGES NEEDED
+-----------------------------------
+- No vercel.json headers required
+- No environment variables needed
+- No Vercel dashboard configuration required
+- No domain whitelisting needed (GT works on any public domain)
+- Google Translate's free website widget does not require an API key
+
+KNOWN LIMITATIONS OF GOOGLE TRANSLATE FREE WIDGET
+--------------------------------------------------
+- Google deprecated the website translator widget in 2019 but it still works
+- The widget may show a brief Google-branded toolbar (suppressed by our CSS)
+- Translation quality varies by language
+- The widget does not work on localhost (must be deployed to a real domain)
+  → Test on https://mahavir-mandir.vercel.app after Vercel deploys
+
+HOW TO TEST
+-----------
+1. Wait for Vercel to deploy (usually 1-2 minutes after git push)
+2. Open the live site
+3. Click the FAB (red button, bottom-right) → Language → dropdown appears
+4. Select a language (e.g. Hindi) → page content translates

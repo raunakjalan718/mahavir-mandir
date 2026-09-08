@@ -17,26 +17,8 @@ export default function SideEdgeTabs({
   const [langOpen, setLangOpen] = useState(false);
   const langRef = useRef<HTMLDivElement>(null);
 
-  // Suppress Google Translate's injected top toolbar
-  useEffect(() => {
-    const style = document.createElement("style");
-    style.id = "gt-suppress";
-    style.innerHTML = `
-      .goog-te-banner-frame.skiptranslate { display: none !important; }
-      .goog-te-gadget { display: none !important; }
-      #goog-gt-tt { display: none !important; }
-      .goog-te-balloon-frame { display: none !important; }
-      body { top: 0px !important; }
-      font { background-color: transparent !important; box-shadow: none !important; }
-    `;
-    if (!document.getElementById("gt-suppress")) {
-      document.head.appendChild(style);
-    }
-    return () => {
-      const el = document.getElementById("gt-suppress");
-      if (el) el.remove();
-    };
-  }, []);
+
+
 
   function handleAction(id: string) {
     if (id === "live") { setIsOpen(false); onOpenLive(); }

@@ -24,6 +24,10 @@
       background-color: #faf7f2;
       color: #2a1e17;
       font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    html {
+      scroll-behavior: smooth;
     }
 
     .font-serif-title {
@@ -38,8 +42,17 @@
     }
 
     .modern-card:hover {
-      transform: translateY(-2px);
+      transform: translateY(-4px);
       border-color: rgb(255, 123, 0);
+      box-shadow: 0 10px 25px -5px rgba(139, 30, 15, 0.1), 0 8px 10px -6px rgba(139, 30, 15, 0.1);
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
     }
   </style>
 </head>
@@ -48,12 +61,22 @@
   <div id="root"></div>
 
   <script type="text/babel">
-    const { useState } = React;
+    const { useState, useEffect } = React;
 
     function MandirApp() {
       const [isDonateOpen, setIsDonateOpen] = useState(false);
       const [isLiveOpen, setIsLiveOpen] = useState(false);
       const [activeTab, setActiveTab] = useState("construction");
+      const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+      useEffect(() => {
+        if (isMobileMenuOpen || isDonateOpen || isLiveOpen) {
+          document.body.style.overflow = 'hidden';
+        } else {
+          document.body.style.overflow = 'unset';
+        }
+        return () => { document.body.style.overflow = 'unset'; };
+      }, [isMobileMenuOpen, isDonateOpen, isLiveOpen]);
 
       const tabContents = {
         construction: "The present temple complex was renovated between November 30, 1984 and March 4, 1985. Covering an expansive area of 10,000 square feet, the complex provides complete amenities for visitors and devotees. Upon entering the temple complex, stairs on a platform on the left lead to the main area of the temple, called the Sanctum Sanctorum, where Lord Hanuman is enshrined. Surrounding this is a wide corridor containing the deity of Lord Shiva.",
@@ -62,17 +85,16 @@
       };
 
       return (
-        <div className="min-h-screen bg-[#faf7f2] text-[#2a1e17] relative">
+        <div className="min-h-screen bg-[#faf7f2] text-[#2a1e17] relative w-full overflow-x-hidden">
 
           {/* Top Announcement Bar */}
-          <div className="bg-[#8b1e0f] text-white text-xs py-2 px-4">
-            <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2 font-medium">
+          <div className="bg-[#8b1e0f] text-white text-xs py-2 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2 font-medium text-center sm:text-left">
               <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-                <span>Daily Schedule: Opens 5:00 AM | Morning Aarti 5:00 PM</span>
-                {/* VERIFY: exact morning vs evening aarti timings against live site before final launch */}
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping shrink-0"></span>
+                <span className="line-clamp-1 sm:line-clamp-none">Daily Schedule: Opens 5:00 AM | Morning Aarti 5:00 PM</span>
               </div>
-              <div className="text-amber-200 text-[11px]">
+              <div className="text-amber-200 text-[10px] sm:text-[11px] hidden sm:block">
                 Patna Junction, Bihar • Shree Mahavir Sthan Nayas Samiti
               </div>
             </div>
@@ -80,73 +102,106 @@
 
           {/* Header Navbar */}
           <header className="sticky top-0 z-40 bg-[#faf7f2]/95 backdrop-blur-md border-b border-amber-900/10 shadow-sm">
-            <div className="max-w-7xl mx-auto px-4 py-3.5 flex items-center justify-between">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-3.5 flex items-center justify-between">
 
-              <div className="flex items-center gap-3">
-                <div className="w-11 h-11 rounded-xl bg-white p-1 flex items-center justify-center border border-amber-400/40 shadow-sm">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-white p-1 flex items-center justify-center border border-amber-400/40 shadow-sm shrink-0">
                   <img src="public/images/logo.png" alt="Mahavir Mandir Logo" className="w-full h-full object-contain" />
                 </div>
                 <div>
-                  <h1 className="font-serif-title text-xl font-bold text-[#2a1e17] leading-snug">Mahavir Mandir, Patna</h1>
-                  <p className="text-xs text-[#8b1e0f] font-bold">Shree Mahavir Sthan Nayas Samiti</p>
+                  <h1 className="font-serif-title text-base sm:text-xl font-bold text-[#2a1e17] leading-tight sm:leading-snug">Mahavir Mandir</h1>
+                  <p className="text-[10px] sm:text-xs text-[#8b1e0f] font-bold line-clamp-1">Shree Mahavir Sthan Nayas Samiti</p>
                 </div>
               </div>
 
               <nav className="hidden lg:flex items-center gap-6 text-xs font-bold uppercase tracking-wider text-[#2a1e17]">
-                <a href="#about" className="hover:text-[#8b1e0f]">About Us</a>
-                <a href="#services" className="hover:text-[#8b1e0f]">Rituals & Offerings</a>
-                <a href="#about" className="hover:text-[#8b1e0f]">Research & Publications</a>
-                <a href="#activity" className="hover:text-[#8b1e0f]">Online Services</a>
-                <a href="#health" className="hover:text-[#8b1e0f]">Health Institutes</a>
-                <a href="#contact" className="hover:text-[#8b1e0f]">Contact Us</a>
+                <a href="#about" className="hover:text-[#8b1e0f] transition-colors">About Us</a>
+                <a href="#services" className="hover:text-[#8b1e0f] transition-colors">Rituals & Offerings</a>
+                <a href="#about" className="hover:text-[#8b1e0f] transition-colors">Research & Pubs</a>
+                <a href="#activity" className="hover:text-[#8b1e0f] transition-colors">Online Services</a>
+                <a href="#health" className="hover:text-[#8b1e0f] transition-colors">Health Institutes</a>
+                <a href="#contact" className="hover:text-[#8b1e0f] transition-colors">Contact Us</a>
               </nav>
 
-              <button onClick={() => setIsLiveOpen(true)} className="px-4 py-2 rounded-lg bg-white border border-red-200 text-[#8b1e0f] font-bold text-xs shadow-sm hover:bg-red-50 flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
-                <span>Live Darshan</span>
-              </button>
+              <div className="flex items-center gap-2 sm:gap-3">
+                <button onClick={() => setIsLiveOpen(true)} className="px-3 sm:px-4 py-2 rounded-lg bg-white border border-red-200 text-[#8b1e0f] font-bold text-[11px] sm:text-xs shadow-sm hover:bg-red-50 flex items-center gap-1.5 sm:gap-2 transition-all active:scale-95">
+                  <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-red-600 animate-pulse shrink-0"></span>
+                  <span className="hidden sm:inline">Live Darshan</span>
+                  <span className="sm:hidden">Live</span>
+                </button>
+                
+                {/* Mobile Menu Toggle */}
+                <button 
+                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
+                  className="lg:hidden p-2 -mr-2 text-[#2a1e17] hover:bg-amber-900/5 rounded-lg transition-colors active:scale-95"
+                  aria-label="Toggle mobile menu"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
+                    {isMobileMenuOpen ? (
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    ) : (
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                    )}
+                  </svg>
+                </button>
+              </div>
             </div>
+
+            {/* Mobile Menu Dropdown */}
+            {isMobileMenuOpen && (
+              <div className="lg:hidden absolute top-full left-0 right-0 bg-[#faf7f2]/98 backdrop-blur-xl border-b border-amber-900/10 shadow-2xl h-[calc(100vh-100%)] min-h-[400px] overflow-y-auto transition-all">
+                <nav className="flex flex-col p-4 space-y-2 text-sm font-bold uppercase tracking-wider text-[#2a1e17]">
+                  <a href="#about" onClick={() => setIsMobileMenuOpen(false)} className="p-4 rounded-xl hover:bg-white active:bg-amber-900/10 transition-all border border-transparent hover:border-amber-900/10 shadow-sm">About Us</a>
+                  <a href="#services" onClick={() => setIsMobileMenuOpen(false)} className="p-4 rounded-xl hover:bg-white active:bg-amber-900/10 transition-all border border-transparent hover:border-amber-900/10 shadow-sm">Rituals & Offerings</a>
+                  <a href="#about" onClick={() => setIsMobileMenuOpen(false)} className="p-4 rounded-xl hover:bg-white active:bg-amber-900/10 transition-all border border-transparent hover:border-amber-900/10 shadow-sm">Research & Publications</a>
+                  <a href="#activity" onClick={() => setIsMobileMenuOpen(false)} className="p-4 rounded-xl hover:bg-white active:bg-amber-900/10 transition-all border border-transparent hover:border-amber-900/10 shadow-sm">Online Services</a>
+                  <a href="#health" onClick={() => setIsMobileMenuOpen(false)} className="p-4 rounded-xl hover:bg-white active:bg-amber-900/10 transition-all border border-transparent hover:border-amber-900/10 shadow-sm">Health Institutes</a>
+                  <a href="#contact" onClick={() => setIsMobileMenuOpen(false)} className="p-4 rounded-xl hover:bg-white active:bg-amber-900/10 transition-all border border-transparent hover:border-amber-900/10 shadow-sm">Contact Us</a>
+                </nav>
+              </div>
+            )}
           </header>
 
           {/* Hero Banner */}
-          <section className="relative py-14 lg:py-24 px-4 bg-gradient-to-br from-[#5c1208] via-[#75190b] to-[#3d0903] text-white border-b-4 border-[#d4af37] overflow-hidden">
+          <section className="relative py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#5c1208] via-[#75190b] to-[#3d0903] text-white border-b-4 border-[#d4af37] overflow-hidden">
             <div 
               className="absolute inset-0 bg-cover bg-center opacity-15 mix-blend-overlay pointer-events-none"
               style={{ backgroundImage: "url('public/images/Mahavir%20Mandir.png')" }}
             ></div>
-            <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
-              <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-                <span className="text-xs font-bold text-amber-300 uppercase tracking-widest block">
+            <div className="max-w-6xl mx-auto flex flex-col lg:grid lg:grid-cols-12 gap-10 sm:gap-12 lg:gap-8 items-center relative z-10">
+              <div className="lg:col-span-7 space-y-5 sm:space-y-6 text-center lg:text-left order-1 lg:order-none">
+                <span className="text-[10px] sm:text-xs font-bold text-amber-300 uppercase tracking-widest block">
                   Shree Mahavir Sthan Nayas Samiti
                 </span>
 
-                <h1 className="font-serif-title text-4xl sm:text-6xl font-extrabold text-white leading-tight">
-                  Mahavir Mandir, <br />
+                <h1 className="font-serif-title text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+                  Mahavir Mandir, <br className="hidden sm:block" />
                   <span className="text-amber-300">Patna, Bihar</span>
                 </h1>
 
-                <p className="text-sm sm:text-base text-amber-100/90 font-normal leading-relaxed max-w-xl">
+                <p className="text-sm sm:text-base text-amber-100/90 font-normal leading-relaxed max-w-xl mx-auto lg:mx-0">
                   One of the oldest and holiest Hanuman temples in India. Enshrining the sacred Sanctum Sanctorum of Lord Hanuman and the Lord Shiva Corridor.
                 </p>
 
-                <div className="bg-black/30 p-4 rounded-xl border border-amber-400/20 max-w-lg text-xs sm:text-sm flex flex-col sm:flex-row justify-between items-center gap-2">
+                <div className="bg-black/30 p-3 sm:p-4 rounded-xl border border-amber-400/20 max-w-lg mx-auto lg:mx-0 text-xs sm:text-sm flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-4 backdrop-blur-sm">
                   <span className="font-bold text-amber-200">Daily Schedule: Opens 5:00 AM</span>
+                  <span className="hidden sm:inline text-amber-400/50">|</span>
                   <span>Morning Aarti: <strong className="text-amber-300">5:00 PM</strong></span>
                 </div>
 
-                <div className="flex flex-wrap gap-4 pt-2 justify-center lg:justify-start">
-                  <button onClick={() => setIsDonateOpen(true)} className="px-6 py-3 rounded-lg bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold text-sm shadow-lg">
+                <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 pt-2 justify-center lg:justify-start">
+                  <button onClick={() => setIsDonateOpen(true)} className="px-6 py-3.5 sm:py-3 rounded-lg bg-amber-500 hover:bg-amber-600 text-gray-950 font-bold text-sm shadow-lg transition-transform active:scale-95 w-full sm:w-auto">
                     Online Donation →
                   </button>
-                  <button onClick={() => setIsLiveOpen(true)} className="px-6 py-3 rounded-lg bg-white/10 border border-white/30 text-white font-bold text-sm">
+                  <button onClick={() => setIsLiveOpen(true)} className="px-6 py-3.5 sm:py-3 rounded-lg bg-white/10 border border-white/30 text-white hover:bg-white/20 font-bold text-sm transition-transform active:scale-95 w-full sm:w-auto">
                     Watch Live Stream
                   </button>
                 </div>
               </div>
 
               {/* Architectural Sanctum Sanctorum Frame with Mahavir Mandir Photo & Logo */}
-              <div className="lg:col-span-5 flex justify-center">
-                <div className="relative bg-[#420d06] rounded-2xl border-2 border-[#d4af37]/60 shadow-2xl overflow-hidden max-w-sm w-full">
+              <div className="lg:col-span-5 flex justify-center order-2 lg:order-none w-full px-2 sm:px-0 mt-4 sm:mt-8 lg:mt-0">
+                <div className="relative bg-[#420d06] rounded-2xl border-2 border-[#d4af37]/60 shadow-2xl overflow-hidden max-w-sm w-full mx-auto transform transition-transform hover:scale-[1.02] duration-300">
                   
                   {/* Temple Image */}
                   <div className="relative h-60 w-full overflow-hidden bg-black/40">
@@ -192,10 +247,10 @@
           </section>
 
           {/* Services Grid (Strong Typography & Numbers - NO icons, NO pill badges) */}
-          <section id="services" className="py-14 px-4 max-w-7xl mx-auto space-y-8">
+          <section id="services" className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8">
             <div className="border-b-2 border-[#8b1e0f]/20 pb-4 max-w-3xl">
-              <h2 className="font-serif-title text-3xl font-bold text-[#2a1e17]">Rituals & Offerings (पूजा एवं सेवा)</h2>
-              <p className="text-xs text-[#2a1e17]/80 mt-1">Comprehensive ritualistic, devotional, and astrological services performed daily at Mahavir Mandir Patna.</p>
+              <h2 className="font-serif-title text-2xl sm:text-3xl font-bold text-[#2a1e17] leading-tight">Rituals & Offerings (पूजा एवं सेवा)</h2>
+              <p className="text-xs sm:text-sm text-[#2a1e17]/80 mt-2 leading-relaxed">Comprehensive ritualistic, devotional, and astrological services performed daily at Mahavir Mandir Patna.</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -265,27 +320,29 @@
           </section>
 
           {/* Sanctum Sanctorum & History */}
-          <section id="about" className="py-14 px-4 max-w-7xl mx-auto bg-white rounded-2xl border border-amber-900/15 p-8 space-y-6">
-            <div className="border-b-2 border-[#8b1e0f]/20 pb-3 max-w-3xl">
-              <h2 className="font-serif-title text-3xl font-bold text-[#2a1e17]">Ancient Mahavir Temple, Patna</h2>
-              <p className="text-xs text-[#2a1e17]/80 mt-1">One of the holiest Hindu temples dedicated to Lord Hanuman in India.</p>
+          <section id="about" className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+           <div className="bg-white rounded-2xl sm:rounded-3xl border border-amber-900/15 p-6 sm:p-8 lg:p-10 space-y-6 sm:space-y-8 shadow-sm">
+            <div className="border-b-2 border-[#8b1e0f]/20 pb-3 sm:pb-4 max-w-3xl">
+              <h2 className="font-serif-title text-2xl sm:text-3xl font-bold text-[#2a1e17] leading-tight">Ancient Mahavir Temple, Patna</h2>
+              <p className="text-xs sm:text-sm text-[#2a1e17]/80 mt-2 leading-relaxed">One of the holiest Hindu temples dedicated to Lord Hanuman in India.</p>
             </div>
 
-            <div className="border-b border-amber-900/10 flex flex-wrap gap-2">
-              <button onClick={() => setActiveTab("construction")} className={`px-4 py-2 font-bold text-xs rounded-t-lg ${activeTab === 'construction' ? 'bg-[#8b1e0f] text-white' : 'bg-gray-100 text-[#2a1e17]'}`}>Construction of Temple</button>
-              <button onClick={() => setActiveTab("expansion")} className={`px-4 py-2 font-bold text-xs rounded-t-lg ${activeTab === 'expansion' ? 'bg-[#8b1e0f] text-white' : 'bg-gray-100 text-[#2a1e17]'}`}>Expansion of Mahavir Temple</button>
-              <button onClick={() => setActiveTab("history")} className={`px-4 py-2 font-bold text-xs rounded-t-lg ${activeTab === 'history' ? 'bg-[#8b1e0f] text-white' : 'bg-gray-100 text-[#2a1e17]'}`}>History of Mahavir Temple</button>
+            <div className="border-b border-amber-900/10 flex overflow-x-auto no-scrollbar gap-2 pb-1 -mb-1">
+              <button onClick={() => setActiveTab("construction")} className={`px-4 sm:px-6 py-2.5 sm:py-3 font-bold text-[11px] sm:text-xs rounded-t-lg whitespace-nowrap transition-colors ${activeTab === 'construction' ? 'bg-[#8b1e0f] text-white' : 'bg-gray-100 hover:bg-gray-200 text-[#2a1e17]'}`}>Construction of Temple</button>
+              <button onClick={() => setActiveTab("expansion")} className={`px-4 sm:px-6 py-2.5 sm:py-3 font-bold text-[11px] sm:text-xs rounded-t-lg whitespace-nowrap transition-colors ${activeTab === 'expansion' ? 'bg-[#8b1e0f] text-white' : 'bg-gray-100 hover:bg-gray-200 text-[#2a1e17]'}`}>Expansion of Mahavir Temple</button>
+              <button onClick={() => setActiveTab("history")} className={`px-4 sm:px-6 py-2.5 sm:py-3 font-bold text-[11px] sm:text-xs rounded-t-lg whitespace-nowrap transition-colors ${activeTab === 'history' ? 'bg-[#8b1e0f] text-white' : 'bg-gray-100 hover:bg-gray-200 text-[#2a1e17]'}`}>History of Mahavir Temple</button>
             </div>
 
-            <div className="bg-[#faf7f2] p-6 rounded-xl border border-amber-900/10 text-xs sm:text-sm text-[#2a1e17]/90 leading-relaxed">
+            <div className="bg-[#faf7f2] p-5 sm:p-6 lg:p-8 rounded-xl border border-amber-900/10 text-xs sm:text-sm text-[#2a1e17]/90 leading-relaxed min-h-[120px]">
               {tabContents[activeTab]}
             </div>
+           </div>
           </section>
 
           {/* Activity Cards (News, Festivals, Daily Schedule) */}
-          <section id="activity" className="py-14 px-4 max-w-7xl mx-auto space-y-8">
-            <div className="border-b-2 border-[#8b1e0f]/20 pb-3">
-              <h2 className="font-serif-title text-3xl font-bold text-[#2a1e17]">Present Activity (नवीनतम गतिविधियाँ)</h2>
+          <section id="activity" className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-6 sm:space-y-8">
+            <div className="border-b-2 border-[#8b1e0f]/20 pb-3 sm:pb-4">
+              <h2 className="font-serif-title text-2xl sm:text-3xl font-bold text-[#2a1e17] leading-tight">Present Activity (नवीनतम गतिविधियाँ)</h2>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -339,10 +396,10 @@
           </section>
 
           {/* Health Institutes */}
-          <section id="health" className="py-14 px-4 max-w-7xl mx-auto space-y-6">
-            <div className="border-b-2 border-[#8b1e0f]/20 pb-3 max-w-3xl">
-              <h2 className="font-serif-title text-3xl font-bold text-[#2a1e17]">Health Institutes (स्वास्थ्य संस्थान)</h2>
-              <p className="text-xs text-[#2a1e17]/80 mt-1">Hospitals operated under Shree Mahavir Sthan Nayas Samiti.</p>
+          <section id="health" className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-6 sm:space-y-8">
+            <div className="border-b-2 border-[#8b1e0f]/20 pb-3 sm:pb-4 max-w-3xl">
+              <h2 className="font-serif-title text-2xl sm:text-3xl font-bold text-[#2a1e17] leading-tight">Health Institutes (स्वास्थ्य संस्थान)</h2>
+              <p className="text-xs sm:text-sm text-[#2a1e17]/80 mt-2 leading-relaxed">Hospitals operated under Shree Mahavir Sthan Nayas Samiti.</p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 text-xs">
@@ -370,8 +427,8 @@
           </section>
 
           {/* Clean 3-Column Footer */}
-          <footer id="contact" className="bg-[#2a1e17] text-amber-100/90 py-12 px-4 border-t-4 border-[#8b1e0f]">
-            <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-xs">
+          <footer id="contact" className="bg-[#2a1e17] text-amber-100/90 py-12 sm:py-16 px-4 sm:px-6 lg:px-8 border-t-4 border-[#8b1e0f]">
+            <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 sm:gap-8 text-xs sm:text-sm">
 
               {/* Column 1 */}
               <div className="space-y-3">
@@ -412,38 +469,50 @@
 
             </div>
 
-            <div className="max-w-7xl mx-auto mt-8 pt-4 border-t border-amber-900/30 text-center text-xs text-amber-200/60">
-              © Shree Mahavir Sthan Nayas Samiti, Mahavir Mandir, Patna, Bihar.
+            <div className="max-w-7xl mx-auto mt-10 sm:mt-12 pt-6 sm:pt-8 border-t border-amber-900/30 text-center text-[11px] sm:text-xs text-amber-200/60 px-4">
+              © 2026 Shree Mahavir Sthan Nayas Samiti, Mahavir Mandir, Patna, Bihar. All rights reserved.
             </div>
           </footer>
 
           {/* Donation Modal */}
           {isDonateOpen && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-              <div className="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 border border-amber-200">
-                <div className="flex justify-between items-center border-b pb-2">
-                  <h3 className="font-serif-title font-bold text-base text-[#2a1e17]">Online Donation / Offering</h3>
-                  <button onClick={() => setIsDonateOpen(false)} className="font-bold text-gray-600">✕</button>
+            <div className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/60 backdrop-blur-sm">
+              <div className="bg-white rounded-t-3xl sm:rounded-2xl max-w-md w-full p-6 sm:p-8 space-y-5 border-t sm:border border-amber-200 shadow-2xl transition-transform max-h-[90vh] overflow-y-auto">
+                <div className="w-12 h-1.5 bg-gray-200 rounded-full mx-auto mb-2 sm:hidden"></div>
+                <div className="flex justify-between items-center border-b border-amber-900/10 pb-3">
+                  <h3 className="font-serif-title font-bold text-lg text-[#2a1e17]">Online Donation / Offering</h3>
+                  <button onClick={() => setIsDonateOpen(false)} className="font-bold text-gray-400 hover:text-gray-800 p-1 bg-gray-100 rounded-full w-8 h-8 flex items-center justify-center active:scale-95 transition-transform">✕</button>
                 </div>
-                <p className="text-xs text-[#2a1e17]/80">Official Donation Portal for Shree Mahavir Sthan Nayas Samiti, Patna.</p>
-                <button onClick={() => setIsDonateOpen(false)} className="w-full py-2.5 rounded-lg bg-[#8b1e0f] text-white font-bold text-xs uppercase">
-                  Close Portal
-                </button>
+                <p className="text-sm text-[#2a1e17]/80 leading-relaxed">Official Donation Portal for Shree Mahavir Sthan Nayas Samiti, Patna.</p>
+                <div className="pt-4">
+                  <button onClick={() => setIsDonateOpen(false)} className="w-full py-3.5 rounded-xl bg-[#8b1e0f] hover:bg-[#75190b] text-white font-bold text-sm uppercase tracking-wider active:scale-[0.98] transition-all shadow-md">
+                    Close Portal
+                  </button>
+                </div>
               </div>
             </div>
           )}
 
           {/* Live Modal */}
           {isLiveOpen && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-              <div className="bg-slate-900 text-white rounded-2xl max-w-2xl w-full p-6 space-y-4 border border-amber-500/30">
-                <div className="flex justify-between items-center">
-                  <h3 className="font-serif-title font-bold text-amber-300">LIVE DARSHAN STREAM</h3>
-                  <button onClick={() => setIsLiveOpen(false)} className="font-bold">✕</button>
+            <div className="fixed inset-0 z-[60] flex items-center justify-center p-2 sm:p-4 bg-black/90 backdrop-blur-md">
+              <div className="bg-slate-900 text-white rounded-2xl sm:rounded-3xl max-w-4xl w-full p-4 sm:p-6 space-y-4 border border-amber-500/30 shadow-2xl max-h-[100vh] overflow-y-auto">
+                <div className="flex justify-between items-center px-1">
+                  <h3 className="font-serif-title font-bold text-amber-300 text-sm sm:text-base flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-red-600 animate-pulse"></span>
+                    LIVE DARSHAN STREAM
+                  </h3>
+                  <button onClick={() => setIsLiveOpen(false)} className="font-bold text-white/50 hover:text-white p-2 rounded-full hover:bg-white/10 transition-colors active:scale-95">✕</button>
                 </div>
-                <div className="aspect-video bg-black rounded-xl flex items-center justify-center border border-gray-700">
+                <div className="aspect-video bg-black rounded-xl sm:rounded-2xl flex items-center justify-center border border-gray-800 shadow-inner overflow-hidden relative">
                   {/* TODO: replace with real temple video stream */}
-                  <span className="text-xs text-gray-400">Live Darshan Stream Feed • Mahavir Mandir Patna</span>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10 pointer-events-none"></div>
+                  <span className="text-xs sm:text-sm text-gray-400 font-medium z-20 flex flex-col items-center gap-3">
+                    <svg className="w-8 h-8 text-gray-600 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                    </svg>
+                    Live Darshan Stream Feed • Mahavir Mandir Patna
+                  </span>
                 </div>
               </div>
             </div>

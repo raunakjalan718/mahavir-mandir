@@ -7,6 +7,7 @@ import ServicesGrid from "@/components/ServicesGrid";
 import SanctumHistory from "@/components/SanctumHistory";
 import ActivityCards from "@/components/ActivityCards";
 import HealthInstitutesSection from "@/components/HealthInstitutesSection";
+import TrustCommittee from "@/components/TrustCommittee";
 import Footer from "@/components/Footer";
 import SideEdgeTabs from "@/components/SideEdgeTabs";
 
@@ -54,6 +55,9 @@ export default function Home() {
 
       {/* Health Institutes Section */}
       <HealthInstitutesSection />
+
+      {/* Trust Committee Carousel */}
+      <TrustCommittee />
 
       {/* Clean 3-Column Footer */}
       <Footer />

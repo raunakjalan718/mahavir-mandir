@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Radio, Heart, Globe, X, Plus } from "lucide-react";
+import { Radio, Heart, Globe, X, Plus, Facebook } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface SideEdgeTabsProps {
@@ -33,6 +33,10 @@ export default function SideEdgeTabs({
     if (id === "live") { setIsOpen(false); onOpenLive(); }
     else if (id === "donate") { setIsOpen(false); onOpenDonate(); }
     else if (id === "language") { setLangOpen((v) => !v); }
+    else if (id === "facebook") { 
+      setIsOpen(false); 
+      window.open("https://www.facebook.com/PatnaMahavirMandir/?ref=embed_page#", "_blank", "noopener,noreferrer"); 
+    }
   }
 
   // Close lang panel when clicking outside
@@ -77,6 +81,16 @@ export default function SideEdgeTabs({
       hoverBg: "hover:bg-[#3d2a1e]",
       iconColor: "text-amber-300",
       border: "border-amber-400/30",
+    },
+    {
+      id: "facebook",
+      label: "Facebook",
+      sublabel: "Follow us",
+      icon: Facebook,
+      bg: "bg-blue-600",
+      hoverBg: "hover:bg-blue-700",
+      iconColor: "text-white",
+      border: "border-blue-400/50",
     },
   ];
 

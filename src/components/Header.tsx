@@ -4,14 +4,7 @@ import { useState, useEffect } from "react";
 import { Menu, X, Globe } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-// Facebook SVG icon (official brand color)
-function FacebookIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
-      <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073c0 6.026 4.388 11.02 10.125 11.927v-8.437H7.078v-3.49h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.49h-2.796v8.437C19.612 23.093 24 18.1 24 12.073z" />
-    </svg>
-  );
-}
+// Removed FacebookIcon
 
 interface HeaderProps {
   onOpenDonate: () => void;
@@ -260,18 +253,6 @@ export default function Header({
               <span className="text-[11px] font-bold uppercase tracking-wider">Language</span>
             </button>
 
-            {/* Facebook page link */}
-            <a
-              href="https://www.facebook.com/PatnaMahavirMandir/?ref=embed_page#"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Follow us on Facebook"
-              title="Follow us on Facebook"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-blue-600/30 bg-blue-50/60 hover:bg-blue-100/80 text-blue-700 hover:text-blue-800 transition-all duration-200 cursor-pointer group"
-            >
-              <FacebookIcon className="w-4 h-4 group-hover:scale-110 transition-transform" />
-              <span className="text-[11px] font-bold uppercase tracking-wider">Facebook</span>
-            </a>
           </motion.div>
 
           {/* Mobile Menu Button */}
@@ -327,16 +308,6 @@ export default function Header({
               >
                 Online Donation / Offering
               </button>
-              <a
-                href="https://www.facebook.com/PatnaMahavirMandir/?ref=embed_page#"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full py-2.5 rounded-lg bg-blue-600 text-white font-bold text-xs flex items-center justify-center gap-2"
-              >
-                <FacebookIcon className="w-3.5 h-3.5" />
-                Follow on Facebook
-              </a>
             </div>
           </div>
         )}

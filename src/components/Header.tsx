@@ -76,20 +76,21 @@ export default function Header({
                   duration: 1.2,
                   ease: [0.16, 1, 0.3, 1], // smooth ease-out, deliberate & premium
                 }}
-                className="flex items-center gap-4 scale-[1.75] sm:scale-[2.2] origin-center cursor-default select-none p-4"
+                style={{ willChange: "transform" }}
+                className="flex items-center gap-3 sm:gap-5 cursor-default select-none p-4 max-w-[95vw] mx-auto overflow-hidden sm:overflow-visible"
               >
-                <div className="w-12 h-12 rounded-xl bg-white p-1 flex items-center justify-center shadow-md border border-amber-400/40">
+                <div className="w-14 h-14 sm:w-20 sm:h-20 rounded-xl sm:rounded-2xl bg-white p-1.5 sm:p-2 flex items-center justify-center shadow-lg border border-amber-400/40 shrink-0">
                   <img
                     src="/images/logo.png"
                     alt="Mahavir Mandir Logo"
                     className="w-full h-full object-contain"
                   />
                 </div>
-                <div>
-                  <h1 className="font-serif-title text-xl sm:text-2xl font-bold tracking-tight text-[#2a1e17] leading-snug">
+                <div className="flex flex-col min-w-0">
+                  <h1 className="font-serif-title text-[20px] sm:text-[34px] font-bold tracking-tight text-[#2a1e17] leading-snug whitespace-nowrap truncate sm:overflow-visible">
                     Mahavir Mandir, Patna
                   </h1>
-                  <p className="text-xs text-[#8b1e0f] font-semibold tracking-wide">
+                  <p className="text-[11px] sm:text-[15px] text-[#8b1e0f] font-bold tracking-wide whitespace-nowrap truncate sm:overflow-visible">
                     Shree Mahavir Sthan Nayas Samiti
                   </p>
                 </div>
@@ -138,20 +139,21 @@ export default function Header({
                   duration: 1.2,
                   ease: [0.16, 1, 0.3, 1],
                 }}
+                style={{ willChange: "transform" }}
                 className="flex items-center gap-3 group"
               >
-                <div className="w-11 h-11 rounded-xl bg-white p-1 flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform border border-amber-400/40">
+                <div className="w-11 h-11 rounded-xl bg-white p-1 flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform border border-amber-400/40 shrink-0">
                   <img
                     src="/images/logo.png"
                     alt="Mahavir Mandir Logo"
                     className="w-full h-full object-contain"
                   />
                 </div>
-                <div>
-                  <h1 className="font-serif-title text-lg sm:text-xl font-bold tracking-tight text-[#2a1e17] group-hover:text-[#8b1e0f] transition-colors leading-snug">
+                <div className="flex flex-col min-w-0">
+                  <h1 className="font-serif-title text-lg sm:text-xl font-bold tracking-tight text-[#2a1e17] group-hover:text-[#8b1e0f] transition-colors leading-snug whitespace-nowrap truncate sm:overflow-visible">
                     Mahavir Mandir, Patna
                   </h1>
-                  <p className="text-xs text-[#8b1e0f] font-semibold tracking-wide">
+                  <p className="text-xs text-[#8b1e0f] font-semibold tracking-wide whitespace-nowrap truncate sm:overflow-visible">
                     Shree Mahavir Sthan Nayas Samiti
                   </p>
                 </div>

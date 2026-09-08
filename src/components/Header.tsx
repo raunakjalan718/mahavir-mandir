@@ -88,7 +88,7 @@ export default function Header({
                 </div>
                 <div className="flex flex-col min-w-0">
                   <h1 className="font-serif-title text-[20px] sm:text-[34px] font-bold tracking-tight text-[#2a1e17] leading-snug whitespace-nowrap truncate sm:overflow-visible">
-                    Mahavir Mandir, Patna
+                    Mahavir Mandir
                   </h1>
                   <p className="text-[11px] sm:text-[15px] text-[#8b1e0f] font-bold tracking-wide whitespace-nowrap truncate sm:overflow-visible">
                     Shree Mahavir Sthan Nayas Samiti

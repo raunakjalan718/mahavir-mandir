@@ -18,8 +18,24 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+        {/* Google Translate */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              function googleTranslateElementInit() {
+                new google.translate.TranslateElement(
+                  { pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE },
+                  'google_translate_element'
+                );
+              }
+            `,
+          }}
+        />
+        <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async />
       </head>
       <body className="bg-[#faf7f2] text-[#2a1e17] antialiased selection:bg-[#8b1e0f] selection:text-white">
+        {/* Hidden Google Translate anchor */}
+        <div id="google_translate_element" style={{ display: "none" }} />
         {children}
       </body>
     </html>

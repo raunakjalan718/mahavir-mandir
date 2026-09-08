@@ -1,8 +1,17 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Globe } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+
+// Facebook SVG icon (official brand color)
+function FacebookIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+      <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073c0 6.026 4.388 11.02 10.125 11.927v-8.437H7.078v-3.49h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.49h-2.796v8.437C19.612 23.093 24 18.1 24 12.073z" />
+    </svg>
+  );
+}
 
 interface HeaderProps {
   onOpenDonate: () => void;
@@ -190,6 +199,81 @@ export default function Header({
             </motion.a>
           </motion.nav>
 
+          {/* Right-side action icons: Language + Facebook */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={stage === "centered" ? { opacity: 0 } : { opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="hidden lg:flex items-center gap-2"
+          >
+            {/* Google Translate trigger */}
+            <button
+              aria-label="Translate page"
+              title="Translate page"
+              onClick={() => {
+                // Trigger the hidden Google Translate select via click
+                const sel = document.querySelector<HTMLSelectElement>('#google_translate_element select.goog-te-combo');
+                if (sel) sel.focus();
+                // Also dispatch a custom event so SideEdgeTabs can intercept if needed
+                // For now: open the FAB panel — we open the widget directly
+                const el = document.querySelector<HTMLElement>('#google_translate_element');
+                if (el) el.style.display = 'block';
+                // Show a small inline translate popover
+                const existing = document.getElementById('nav-translate-popover');
+                if (existing) { existing.remove(); return; }
+                const pop = document.createElement('div');
+                pop.id = 'nav-translate-popover';
+                pop.style.cssText = 'position:fixed;top:64px;right:120px;z-index:9999;background:#2a1e17;border:1px solid rgba(251,191,36,0.3);border-radius:16px;padding:16px;box-shadow:0 20px 60px rgba(0,0,0,0.4);min-width:220px';
+                pop.innerHTML = `
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+                    <span style="color:#fcd34d;font-weight:700;font-size:13px">🌐 Translate Page</span>
+                    <button id="nav-translate-close" style="color:#fcd34d;background:none;border:none;cursor:pointer;font-size:18px;line-height:1">&times;</button>
+                  </div>
+                  <p style="color:rgba(254,243,199,0.5);font-size:11px;margin-bottom:8px">Select language:</p>
+                  <div id="nav-gt-clone"></div>
+                  <p style="color:rgba(254,243,199,0.25);font-size:10px;margin-top:8px">Powered by Google Translate</p>
+                `;
+                document.body.appendChild(pop);
+                document.getElementById('nav-translate-close')?.addEventListener('click', () => pop.remove());
+                // Clone the GT select
+                const srcSel = document.querySelector<HTMLSelectElement>('#google_translate_element select.goog-te-combo');
+                const container = document.getElementById('nav-gt-clone');
+                if (srcSel && container) {
+                  const cloned = srcSel.cloneNode(true) as HTMLSelectElement;
+                  cloned.style.cssText = 'width:100%;background:#1a110c;color:#fde68a;border:1px solid rgba(251,191,36,0.3);border-radius:10px;padding:8px 12px;font-size:13px;cursor:pointer;outline:none';
+                  cloned.addEventListener('change', (e) => {
+                    srcSel.value = (e.target as HTMLSelectElement).value;
+                    srcSel.dispatchEvent(new Event('change'));
+                  });
+                  container.appendChild(cloned);
+                }
+                // Close on outside click
+                setTimeout(() => {
+                  document.addEventListener('mousedown', function handler(e) {
+                    if (!pop.contains(e.target as Node)) { pop.remove(); document.removeEventListener('mousedown', handler); }
+                  });
+                }, 100);
+              }}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-amber-400/30 bg-amber-50/60 hover:bg-amber-100/80 text-[#2a1e17] hover:text-[#8b1e0f] transition-all duration-200 cursor-pointer group"
+            >
+              <Globe className="w-4 h-4 group-hover:scale-110 transition-transform" />
+              <span className="text-[11px] font-bold uppercase tracking-wider">Language</span>
+            </button>
+
+            {/* Facebook page link */}
+            <a
+              href="https://www.facebook.com/PatnaMahavirMandir/?ref=embed_page#"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Follow us on Facebook"
+              title="Follow us on Facebook"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-blue-600/30 bg-blue-50/60 hover:bg-blue-100/80 text-blue-700 hover:text-blue-800 transition-all duration-200 cursor-pointer group"
+            >
+              <FacebookIcon className="w-4 h-4 group-hover:scale-110 transition-transform" />
+              <span className="text-[11px] font-bold uppercase tracking-wider">Facebook</span>
+            </a>
+          </motion.div>
+
           {/* Mobile Menu Button */}
           <motion.button
             initial={{ opacity: 0 }}
@@ -243,6 +327,16 @@ export default function Header({
               >
                 Online Donation / Offering
               </button>
+              <a
+                href="https://www.facebook.com/PatnaMahavirMandir/?ref=embed_page#"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full py-2.5 rounded-lg bg-blue-600 text-white font-bold text-xs flex items-center justify-center gap-2"
+              >
+                <FacebookIcon className="w-3.5 h-3.5" />
+                Follow on Facebook
+              </a>
             </div>
           </div>
         )}

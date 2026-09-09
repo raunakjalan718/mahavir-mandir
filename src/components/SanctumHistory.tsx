@@ -100,11 +100,7 @@ export default function SanctumHistory() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.97 }}
                   transition={{ duration: 0.5 }}
-                  className="absolute inset-0 w-full h-full object-cover"
-                  onError={(e) => {
-                    // Fallback if image not found
-                    (e.target as HTMLImageElement).style.display = "none";
-                  }}
+                  className="absolute inset-0 w-full h-full object-cover z-10"
                 />
               </AnimatePresence>
 
@@ -153,7 +149,6 @@ export default function SanctumHistory() {
                     src={p.src}
                     alt={p.alt}
                     className="w-full h-full object-cover"
-                    onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
                   />
                 </button>
               ))}

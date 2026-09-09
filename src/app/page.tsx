@@ -6,6 +6,7 @@ import Hero from "@/components/Hero";
 import ServicesGrid from "@/components/ServicesGrid";
 import SanctumHistory from "@/components/SanctumHistory";
 import ActivityCards from "@/components/ActivityCards";
+import NoticeBoard from "@/components/NoticeBoard";
 import HealthInstitutesSection from "@/components/HealthInstitutesSection";
 import TrustCommittee from "@/components/TrustCommittee";
 import Footer from "@/components/Footer";
@@ -52,6 +53,9 @@ export default function Home() {
 
       {/* Present Activity Cards Layout */}
       <ActivityCards />
+
+      {/* Notice Board & Daily Schedule */}
+      <NoticeBoard />
 
       {/* Health Institutes Section */}
       <HealthInstitutesSection />

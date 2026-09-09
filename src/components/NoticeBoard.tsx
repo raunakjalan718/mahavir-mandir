@@ -233,7 +233,7 @@ export default function NoticeBoard() {
         </div>
 
         {/* ── DESKTOP: 3 columns side-by-side ──────────────────────────────────── */}
-        <div className="hidden lg:grid lg:grid-cols-3 gap-6 h-[520px]">
+        <div className="hidden lg:grid lg:grid-cols-3 gap-6 h-[380px]">
           <DailyEventsPanel />
           <TendersPanel />
           <RecruitmentPanel />
@@ -261,7 +261,7 @@ export default function NoticeBoard() {
 
           {/* Carousel panel */}
           <div
-            className="relative overflow-hidden h-[460px] touch-pan-y"
+            className="relative overflow-hidden h-[360px] touch-pan-y"
             onPointerDown={onPointerDown}
             onPointerUp={onPointerUp}
           >
